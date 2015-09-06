@@ -1,0 +1,77 @@
+body {
+	background-color: black;
+	background-image: url(res/bg.png);
+	color: white;
+	font-family: Cambria, serif;
+	margin: 0;
+	width: 100%;
+}
+h1, h3 {
+	font-family: "Segoe UI", Ubuntu, Calibri, Tahoma, sans-serif;
+	margin: 0;
+}
+h1 {
+	margin-left: 5px;
+}
+a {
+	color: white;
+}
+div {
+	padding: 5px;
+}
+#outer {
+	padding: 10px;
+}
+#inner, #footer {
+	background-color: black;
+	background-color: rgba(0, 0, 0, 0.8);
+	border: 1px solid white;
+}
+#footer {
+	margin-top: 10px;
+	padding: 10px;
+	text-align: center;
+}
+.ach {
+	border: 1px solid white;
+	margin: 5px 5px 0;
+}
+.ach.n {
+	filter: alpha(opacity=60);
+	opacity: 0.6;
+}
+.box {
+	background: none;
+	border: 1px solid white;
+	float: left;
+	margin-right: 3px;
+	height: 32px;
+	width: 32px;
+}
+.y .box {
+	background: url(res/tick.png) no-repeat center;
+}
+.prog {
+	display: block;
+	font-size: small;
+	font-style: italic;
+	margin: 4px 0 2px;
+}
+.bar {
+	border: 1px solid white;
+	padding: 0;
+}
+.bar div {
+	background-color: white;
+	height: 15px;
+	padding: 0;
+}
+form {
+	margin: 0;
+}
+input[id^="name"], input[type="submit"] {
+	font-size: large;
+}
+input[id^="name"], input[id^="desc"] {
+	width: 100%;
+}
