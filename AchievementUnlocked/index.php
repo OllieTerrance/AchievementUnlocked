@@ -14,6 +14,7 @@ if (array_key_exists("uid", $_GET) && ctype_digit($_GET["uid"])) {
 	}
 	else {
 		header("Location: ./");
+		die();
 	}
 }
 else if (array_key_exists("login", $_SESSION)) {
