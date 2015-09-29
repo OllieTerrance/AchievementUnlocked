@@ -1,48 +1,42 @@
 <?
-require_once getenv("PHPLIB") . "keystore.php";
-mysql_connect(keystore("mysql", "db"), keystore("mysql", "user"), keystore("mysql", "pass"));
-mysql_select_db("terrance_labs");
+$dbFile = "ach.db";
+$db = require_once getenv("PHPLIB") . "db.php";
 session_start();
 if (array_key_exists("tid", $_GET)) {
 	$tid = $_GET["tid"];
-	$data = mysql_query("SELECT * FROM `ach__tasks` WHERE `tid` = " . $tid . ";");
-	$row = mysql_fetch_array($data);
-	if (!$row) {
+    $tasks = $db->select("tasks", "*", array("tid" => $tid));
+	if (count($tasks) === 0) {
 		die("No task found with the ID " . $tid . ".");
 	}
+    $row = $tasks[0];
 	$name = $row["name"];
 	$desc = $row["desc"];
 	$cur = (int) $row["cur"];
 	$tot = (int) $row["tot"];
 	if ($tot > 1) {
 		$done = ($cur === $tot ? 1 : 0);
-	}
-	else {
+	} else {
 		$done = $cur;
 		$cur = 0;
 	}
-}
-else if (array_key_exists("uid", $_GET)) {
+} elseif (array_key_exists("uid", $_GET)) {
 	$uid = $_GET["uid"];
-	$data = mysql_query("SELECT * FROM `ach__tasks` WHERE `uid` = " . $uid . ";");
-	$len = mysql_num_rows($data);
-	if (!$len) {
+    $tasks = $db->select("tasks", "*", array("uid" => $uid));
+	if (count($tasks) === 0) {
 		die("No tasks found for the user with ID " . $uid . ".");
 	}
-	$rand = rand(0, $len - 1);
-	$name = mysql_result($data, $rand, "name");
-	$desc = mysql_result($data, $rand, "desc");
-	$cur = (int) mysql_result($data, $rand, "cur");
-	$tot = (int) mysql_result($data, $rand, "tot");
+	$row = $tasks[rand(0, count($tasks) - 1)];
+	$name = $row["name"];
+	$desc = $row["desc"];
+	$cur = (int) $row["cur"];
+	$tot = (int) $row["tot"];
 	if ($tot > 1) {
 		$done = ($cur === $tot ? 1 : 0);
-	}
-	else {
+	} else {
 		$done = $cur;
 		$cur = 0;
 	}
-}
-else {
+} else {
 	header("./");
 }
 $img = imagecreatefrompng("res/" . ($done ? "y" : "n") . "_" . ($tot > 1 ? "prog" : "check") . ".png");

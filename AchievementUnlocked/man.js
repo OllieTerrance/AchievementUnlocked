@@ -27,8 +27,7 @@ function progress_val(field) {
 	if (parseInt($el("cur").value) > parseInt($el("tot").value)) {
 		if (field === $el("cur")) {
 			$el("tot").value = $el("cur").value;
-		}
-		else {
+		} else {
 			$el("cur").value = $el("tot").value;
 		}
 	}
@@ -36,25 +35,23 @@ function progress_val(field) {
 
 // submit the form (yay!)
 function form_submit(full) {
-	errors = [];
+	var errors = [];
 	if (full) {
 		if ($el("name").value === "") {
 			errors.push("This task doesn't have a name.");
 		}
-		check = $el("form_type").value === "1";
+		var check = $el("form_type").value === "1";
 		if (check) {
 			$el("cur").value = ($el("done").checked ? "1" : "0");
 			$el("tot").value = "1";
-		}
-		else if (parseInt($el("cur").value) > parseInt($el("tot").value)) {
+		} else if (parseInt($el("cur").value) > parseInt($el("tot").value)) {
 			errors.push("The current value, " + $el("cur").value + ", exceeds the total value, " + $el("tot").value + ", for the task \"" + $el("name_" + i).value + "\".");
 		}
 	}
 	if (errors.length === 0) {
 		$el("form_val").value = "1";
 		return true;
-	}
-	else if (errors.length) {
+	} else {
 		alert(errors.join("\n"));
 	}
 	return false;
