@@ -74,7 +74,9 @@ if (!$return) {
 }
 ?><html>
     <head>
-        <title>Achievement Unlocked!</title>
+        <title><? print ucfirst($act); ?> &ndash; Achievement Unlocked!</title>
+        <meta name="author" content="Ollie Terrance">
+        <meta name="description" content="Oh, achievements.  You know what I'm on about.  You're playing those games, and you'll unlock achievements for the most ridiculous things, easy or not.">
         <link href="style.css" rel="stylesheet" type="text/css">
         <script src="man.js" type="text/javascript"></script>
     </head>

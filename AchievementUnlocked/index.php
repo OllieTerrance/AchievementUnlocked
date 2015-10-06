@@ -4,6 +4,7 @@ $db = require_once getenv("PHPLIB") . "db.php";
 session_start();
 $edit = False;
 $uid = null;
+$user = null;
 if (array_key_exists("uid", $_GET) && ctype_digit($_GET["uid"])) {
     $uid = $_GET["uid"];
     $data = $db->select("users", "user", array("uid" => $uid));
@@ -17,7 +18,11 @@ if (array_key_exists("uid", $_GET) && ctype_digit($_GET["uid"])) {
     $uid = $_SESSION["login"]["uid"];
     $edit = True;
 }
+$metaTitle = "";
+$metaDesc = "";
 if ($uid) {
+    $metaTitle = ($user ? $user . "'s" : "Your") . " achievements &ndash; ";
+    $metaDesc = "Achievement list for " . $user . ".  ";
     $tasks = $db->select("tasks", "*", array("uid" => $uid));
     function namesort($a, $b) {
         return strnatcmp($a["name"], $b["name"]);
@@ -26,8 +31,10 @@ if ($uid) {
 }
 ?><html>
     <head>
-        <title>Achievement Unlocked!</title>
-        <link href="style.css" rel="stylesheet" type="text/css"/>
+        <title><? print $metaTitle; ?>Achievement Unlocked!</title>
+        <meta name="author" content="Ollie Terrance">
+        <meta name="description" content="<? print $metaDesc; ?>Oh, achievements.  You know what I'm on about.  You're playing those games, and you'll unlock achievements for the most ridiculous things, easy or not.">
+        <link href="style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <div id="outer">
@@ -38,7 +45,7 @@ if ($uid) {
 <?
 if (array_key_exists("login", $_SESSION)) {
 ?>
-                <div>Logged in as <strong><? print $_SESSION["login"]["user"]; ?></strong>.  <a href="?uid=<? print $_SESSION["login"]["uid"]; ?>">View</a> / <a href="">Edit</a> Achievements  |  <a href="img.php?uid=<? print $_SESSION["login"]["uid"]; ?>" onclick="prompt('Use this link on forums, websites or anywhere else that supports external images.', this.href); return false;">Random Image Link</a>  |  <a href="user.php?act=password">Change Password</a> / <a href="user.php?act=logout">Logout</a></div>
+                <div>Logged in as <strong><? print $_SESSION["login"]["user"]; ?></strong>.  <a href="?uid=<? print $_SESSION["login"]["uid"]; ?>">View</a> / <a href="./">Edit</a> Achievements  |  <a href="img.php?uid=<? print $_SESSION["login"]["uid"]; ?>" onclick="prompt('Use this link on forums, websites or anywhere else that supports external images.', this.href); return false;">Random Image Link</a>  |  <a href="user.php?act=password">Change Password</a> / <a href="user.php?act=logout">Logout</a></div>
 <?
 } else {
 ?>
