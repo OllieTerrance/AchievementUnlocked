@@ -1,4 +1,4 @@
-﻿<?
+<?
 $act = $_GET["act"];
 if (!in_array($act, Array("login", "logout", "register", "password"))) {
     header("Location: ./");

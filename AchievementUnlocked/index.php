@@ -1,4 +1,4 @@
-﻿<?
+<?
 $dbFile = "ach.db";
 $db = require_once getenv("PHPLIB") . "db.php";
 session_start();
